@@ -1,39 +1,35 @@
-import React from "react";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from "../Screens/HomeScreen.tsx";
+import React from 'react';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import HomeScreen from '../Screens/HomeScreen.tsx';
+import SearchScreen from '../Screens/SearchScreen.tsx';
 
 const Tab = createBottomTabNavigator();
 
-function Navigation () {
+function Navigation() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{
-          tabBarLabel: 'HomeScreen',
-          headerStyle: { backgroundColor: 'rgba(0, 0, 0, 1)', borderBottomWidth: 0},
-          headerTitle: 'Edit',
-          headerTitleStyle: {
-            color: '#FF9F0A',
-            borderColor: '#000000'
-          },
-          headerTitleAlign: 'left',
-          // headerRight: () => (
-          //   <MaterialCommunityIcons
-          //     name="plus"
-          //     color="#FF9F0A"
-          //     size={24}
-          //     style={{ marginRight: 10 }}
-          //   />
-          // ),
-          // tabBarIcon: ({ color, size }) => (
-          //   <MaterialCommunityIcons name="web" color={color} size={28} />
-          // ),
-        }}
-      />
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: '#FFF',
+        tabBarInactiveTintColor: 'grey',
+        tabBarStyle: {
+          backgroundColor: '#252525',
+          borderTopWidth: 0,
+          borderColor: '#000000',
+        },
+        headerStyle: {
+          backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        title: 'SnapSlash',
+      }}>
+      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+      <Tab.Screen name="SearchScreen" component={SearchScreen} />
     </Tab.Navigator>
   );
 }
+
 
 export default Navigation;
