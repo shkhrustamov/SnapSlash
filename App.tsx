@@ -1,11 +1,9 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import Navigation from './src/Navigation/Navigation.tsx';
+import {StatusBar} from 'react-native';
+
+// StatusBar.setHidden(true, 'fade');
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <Navigation />
-    </NavigationContainer>
-  );
+  return <Navigation />;
 }
