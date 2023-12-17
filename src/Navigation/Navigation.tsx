@@ -8,6 +8,7 @@ import {TouchableOpacity} from 'react-native';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {DetailsScreen, HomeScreen} from '../Screens/HomeScreen.tsx';
+import api from '../api.tsx';
 
 const Tab = createBottomTabNavigator();
 
