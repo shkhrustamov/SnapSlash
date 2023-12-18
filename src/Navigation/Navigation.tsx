@@ -7,7 +7,7 @@ import Profile from '../Screens/Profile.tsx';
 import {TouchableOpacity} from 'react-native';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {DetailsScreen, HomeScreen} from '../Screens/HomeScreen.tsx';
+import {DetailsScreen, HomeScreen, Modal1} from '../Screens/HomeScreen.tsx';
 import api from '../api.tsx';
 
 const Tab = createBottomTabNavigator();
@@ -38,6 +38,12 @@ const H = () => {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Screen
+        key={'modalScreen-1'}
+        name={'modalScreen-1'}
+        component={Modal1}
+        options={{presentation: 'modal', headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

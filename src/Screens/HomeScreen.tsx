@@ -1,11 +1,6 @@
-import {useEffect, useState} from 'react';
-
-const urls = [
-  'https://images.unsplash.com/photo-1699190375905-3cac33bbdbb1?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://images.unsplash.com/photo-1700105968612-16177029010e?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://images.unsplash.com/photo-1702205210523-37acf6c5eff3?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://images.unsplash.com/photo-1702065555316-08fa5cacdd0e?q=80&w=3017&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-];
+import React, {useEffect, useState} from 'react';
+import Icon from '@mdi/react';
+import {mdiFlag} from '@mdi/js';
 
 const customTransition = SharedTransition.custom(values => {
   'worklet';
@@ -16,6 +11,27 @@ const customTransition = SharedTransition.custom(values => {
     originY: withSpring(values.targetOriginY),
   };
 });
+
+const TabIcon = ({
+  screenName,
+  name,
+  color,
+}: {
+  name: string;
+  color: string;
+  screenName: string;
+}) => {
+  const {navigate} = useNavigation();
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        navigate('modalScreen-1');
+      }}
+      hitSlop={{top: 16, bottom: 16, left: 16, right: 16}}>
+      <MaterialCommunityIcons name={name} color={color} size={24} />
+    </TouchableOpacity>
+  );
+};
 
 import {
   Button,
@@ -38,6 +54,10 @@ import Animated, {
   useAnimatedProps,
 } from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
+import * as path from 'path';
+import {useNavigation} from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import navigation from '../Navigation/Navigation.tsx';
 
 type Image = {
   id: string;
@@ -158,6 +178,26 @@ type Image = {
   };
 };
 
+export const Modal1 = () => {
+  return (
+    <View style={{flexGrow: 1, backgroundColor: '#1e1e1e', opacity: 1}}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{fontSize: 30, fontWeight: '700', color: '#fff'}}>
+          SnapSlash
+        </Text>
+        <Text style={{fontSize: 15, fontWeight: '400', color: '#fff'}}>
+          v2023.11
+        </Text>
+      </View>
+    </View>
+  );
+};
+
 export function HomeScreen({navigation}) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<Image[]>([]);
@@ -191,7 +231,26 @@ export function HomeScreen({navigation}) {
         colors={['#000000', 'rgba(0,0,0,0)']}
         locations={[0.3, 1]}
         style={styles.linearGradient}>
-        <Text style={styles.buttonText}>Unsplash</Text>
+        <View
+          style={{
+            flexGrow: 1,
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('modalScreen-1');
+            }}>
+            <TabIcon screenName="Home" name="cloud" color={'#fff'} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('modalScreen-1');
+            }}>
+            <Text style={styles.buttonText}>SnapSlash</Text>
+          </TouchableOpacity>
+        </View>
       </LinearGradient>
       <ScrollView style={{flexGrow: 1}} showsVerticalScrollIndicator={false}>
         {data.map(image => (
@@ -267,13 +326,6 @@ export function DetailsScreen({navigation, route}) {
       />
       <Animated.ScrollView
         onScroll={scrollHandler}
-        // style={{
-        //   zIndex: 9999,
-        //   marginTop: 0,
-        //   // overflow: 'hidden',
-        //   // flex: 1,
-        //   // height: '100%',
-        // }}
         contentContainerStyle={{...styles.container, paddingTop: 300}}>
         <Animated.View style={vStyles}>
           <Animated.Text entering={FadeInLeft.delay(300)} style={styles.title}>
